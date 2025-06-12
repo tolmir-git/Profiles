@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite Programmer Profiles</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8; /* Lighter background */
+      /* Prevent scrolling when a card is expanded */
+      overflow: auto;
+    }
+
+    .profile-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+      position: relative;
+      min-height: 800px;
+      overflow: visible;
+    }
+
+    /* Base styles for profile cards */
+    .profile-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* First card expands right */
+    .profile-card:first-child {
+      transform-origin: left center;
+    }
+
+    .profile-card:first-child:hover {
+      transform: scale(1.2);
+      width: 120%;
+      z-index: 10;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Second card expands left */
+    .profile-card:last-child {
+      transform-origin: right center;
+    }
+
+    .profile-card:last-child:hover {
+      transform: scale(1.2) translateX(-16.67%);
+      width: 120%;
+      z-index: 10;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Stronger blur effect for non-hovered cards */
+    .profile-container:hover .profile-card:not(:hover) {
+      transform: scale(0.9);
+      opacity: 0.5;
+      filter: blur(3px);
+    }
+
+    /* Hidden elements that show on hover */
+    .hover-content {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .profile-card:hover .hover-content {
+      opacity: 1;
+      height: auto;
+      margin-top: 1.5rem;
+    }
+
+    /* Remove expanded styles as we're using hover now */
+    .profile-card.expanded,
+    .close-btn,
+    #overlay {
+      display: none;
+    }
+
+    /* Contact Notification styles */
+    #contactNotification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      z-index: 101; /* Above expanded card */
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.6s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+    }
+
+    #contactNotification.show-blue {
+      background-color: #2563eb;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-120%);
+    }
+
+    #contactNotification.show-green {
+      background-color: #10b981;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(20%);
+    }
+
+    /* Specific styles for elements within the card */
+    .skill-tag {
+      display: inline-block;
+      background-color: #e0e7ff; /* Light blue background for tags */
+      color: #4338ca; /* Darker blue text */
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background-color: #c7d2fe; /* Slightly darker on hover */
+    }
+
+    .profile-image-placeholder {
+      background: linear-gradient(45deg, #2563eb, #1d4ed8); /* Blue gradient default */
+      border: 3px solid #ffffff; /* White border */
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.3); /* Blue glow */
+      width: 144px; /* Make it square */
+      height: 144px; /* Make it square */
+      border-radius: 3rem; /* Rounded corners */
+    }
+
+    .profile-image-blue {
+      background: linear-gradient(45deg, #2563eb, #1d4ed8); /* Blue gradient */
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.3); /* Blue glow */
+    }
+
+    .profile-image-green {
+      background: linear-gradient(45deg, #34d399, #10b981); /* Lighter green gradient */
+      box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3); /* Lighter green glow */
+    }
+
+    /* Text selection color */
+    ::selection {
+      background: rgba(34, 197, 94, 0.3); /* Light green background */
+      color: #52c4be; /* Dark green text */
+    }
+    
+    ::-moz-selection {
+      background: rgba(34, 197, 94, 0.3); /* Light green background */
+      color: #52c4be; /* Dark green text */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+      .profile-card.expanded {
+        width: 95vw; /* Slightly less width on small screens */
+        height: 90vh; /* Slightly less height on small screens */
+      }
+      #contactNotification {
+        width: 90vw; /* Adjust notification width on small screens */
+        text-align: center;
+        justify-content: center;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-purple-700 to-indigo-900 text-white py-8 shadow-lg">
+    <div class="container mx-auto text-center">
+      <h1 class="text-5xl font-bold tracking-tight">Elite Programmer Profiles</h1>
+      <p class="mt-3 text-xl opacity-90">Discover Top-Tier IT Professionals and Innovators</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto py-16 px-4">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 profile-container">
+      <!-- Programmer 1 -->
+      <div class="bg-white rounded-lg p-8 profile-card flex flex-col items-center text-center" data-profile-id="jane-doe">
+        <div class="w-36 h-36 profile-image-placeholder profile-image-blue flex items-center justify-center text-white text-6xl font-bold overflow-hidden">
+          <span class="text-4xl">JD</span>
+          <!-- Ideally, an actual image would go here -->
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Jane Doe</h2>
+        <p class="text-lg text-blue-600 mb-6 font-semibold">Full-Stack Developer</p>
+
+        <div class="text-left w-full mt-4">
+          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-3">About Me</h3>
+          <p class="text-gray-700 leading-relaxed">
+            I'm a passionate full-stack developer with 3 years of experience in building robust web applications. My expertise lies in crafting responsive and user-friendly interfaces, delivering seamless digital experiences from front to back.
+          </p>
+        </div>
+
+        <div class="text-left w-full mt-6">
+          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-3">Skills</h3>
+          <div class="flex flex-wrap">
+            <span class="skill-tag">JavaScript (React, Node.js)</span>
+            <span class="skill-tag">Python (Django)</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Docker</span>
+          </div>
+        </div>
+
+        <div class="text-left w-full mt-6">
+          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-3">Experience</h3>
+          <p class="text-gray-700 mb-3">
+            <strong class="text-gray-900">Software Developer</strong> at TechCorp (2022–Present)<br>
+            Spearheaded the development and maintenance of key web applications, significantly boosting user engagement by 30%.
+          </p>
+          <p class="text-gray-700">
+            <strong class="text-gray-900">Junior Developer</strong> at StartUp Inc. (2021–2022)<br>
+            Actively contributed to building scalable RESTful APIs and optimizing critical database queries.
+          </p>
+        </div>
+
+        <div class="mt-8 w-full">
+          <a href="mailto:jane.doe@example.com" class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full hover:bg-blue-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold shadow-lg">
+            Contact Jane
+          </a>
+        </div>
+
+        <!-- Add hover content to each profile card -->
+        <div class="hover-content">
+            <div class="bg-gray-50 p-4 rounded-lg mt-4">
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">Additional Achievements</h4>
+                <ul class="list-disc list-inside text-gray-700">
+                    <li>Led a team of 5 developers in redesigning the core platform</li>
+                    <li>Reduced system response time by 40% through optimization</li>
+                    <li>Implemented automated testing, achieving 90% coverage</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+
+      <!-- Programmer 2 -->
+      <div class="bg-white rounded-lg p-8 profile-card flex flex-col items-center text-center" data-profile-id="john-smith">
+        <div class="w-36 h-36 profile-image-placeholder profile-image-green flex items-center justify-center text-white text-6xl font-bold overflow-hidden">
+          <span class="text-4xl">JS</span>
+          <!-- Ideally, an actual image would go here -->
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">John Smith</h2>
+        <p class="text-lg text-green-600 mb-6 font-semibold">Backend Developer</p>
+
+        <div class="text-left w-full mt-4">
+          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-green-400 pb-2 mb-3">About Me</h3>
+          <p class="text-gray-700 leading-relaxed">
+            I am a dedicated backend developer with 4 years of experience, specializing in building highly scalable and resilient server-side applications. My focus is on robust system design and seamless cloud integration.
+          </p>
+        </div>
+
+        <div class="text-left w-full mt-6">
+          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-green-400 pb-2 mb-3">Skills</h3>
+          <div class="flex flex-wrap">
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Java (Spring Boot)</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Python</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Go</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">AWS</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Kubernetes</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">PostgreSQL</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Redis</span>
+            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">REST API Design</span>
+          </div>
+        </div>
+
+        <div class="text-left w-full mt-6">
+          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-green-400 pb-2 mb-3">Experience</h3>
+          <p class="text-gray-700 mb-3">
+            <strong class="text-gray-900">Backend Engineer</strong> at CloudSys (2021–Present)<br>
+            Designed and successfully implemented a microservices architecture, leading to a 25% reduction in system latency.
+          </p>
+          <p class="text-gray-700">
+            <strong class="text-gray-900">Software Engineer</strong> at DataWorks (2020–2021)<br>
+            Significantly optimized database performance and seamlessly integrated various third-party APIs.
+          </p>
+        </div>
+
+        <div class="mt-8 w-full">
+          <a href="mailto:john.smith@example.com" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full hover:bg-green-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold shadow-lg">
+            Contact John
+          </a>
+        </div>
+
+        <!-- Add hover content to each profile card -->
+        <div class="hover-content">
+            <div class="bg-gray-50 p-4 rounded-lg mt-4">
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">Additional Achievements</h4>
+                <ul class="list-disc list-inside text-gray-700">
+                    <li>Led a team of 5 developers in redesigning the core platform</li>
+                    <li>Reduced system response time by 40% through optimization</li>
+                    <li>Implemented automated testing, achieving 90% coverage</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Overlay for expanded card -->
+  <div id="overlay"></div>
+
+  <!-- Contact Notification -->
+  <div id="contactNotification">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+    <span>Ready to connect? Click 'Contact' on the profile!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8 mt-12 shadow-inner">
+    <div class="container mx-auto text-center">
+      <p class="text-gray-400">&copy; 2025 Elite Programmer Profiles. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const contactNotification = document.getElementById('contactNotification');
+        
+        document.querySelectorAll('.profile-card').forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                contactNotification.classList.remove('show-blue', 'show-green');
+                contactNotification.classList.add(index === 0 ? 'show-blue' : 'show-green');
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                contactNotification.classList.remove('show-blue', 'show-green');
+            });
+        });
+    });
+  </script>
+</body>
+</html>
