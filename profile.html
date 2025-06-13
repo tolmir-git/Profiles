@@ -17,10 +17,10 @@
     .profile-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      padding: 2rem;
+      gap: 1rem;
+      padding: 1rem;
       position: relative;
-      min-height: 800px;
+      min-height: 600px;
       overflow: visible;
     }
 
@@ -30,6 +30,8 @@
       width: 100%;
       height: 100%;
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 1rem;
+      min-height: 300px;
     }
 
     /* First card expands right */
@@ -138,21 +140,21 @@
 
     .profile-image-placeholder {
       background: linear-gradient(45deg, #2563eb, #1d4ed8); /* Blue gradient default */
-      border: 3px solid #ffffff; /* White border */
-      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.3); /* Blue glow */
-      width: 144px; /* Make it square */
-      height: 144px; /* Make it square */
-      border-radius: 3rem; /* Rounded corners */
+      border: 2px solid #ffffff; /* White border */
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3); /* Blue glow */
+      width: 100px; /* Make it square */
+      height: 100px; /* Make it square */
+      border-radius: 2rem; /* Rounded corners */
     }
 
     .profile-image-blue {
       background: linear-gradient(45deg, #2563eb, #1d4ed8); /* Blue gradient */
-      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.3); /* Blue glow */
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3); /* Blue glow */
     }
 
     .profile-image-green {
       background: linear-gradient(45deg, #34d399, #10b981); /* Lighter green gradient */
-      box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3); /* Lighter green glow */
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3); /* Lighter green glow */
     }
 
     /* Text selection color */
@@ -165,6 +167,93 @@
       background: rgba(34, 197, 94, 0.3); /* Light green background */
       color: #52c4be; /* Dark green text */
     }
+
+    /* Adjust text sizes and spacing */
+    h1 { font-size: 2.5rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    h3 { font-size: 1.2rem !important; }
+    p { font-size: 0.9rem !important; }
+    
+    .mt-8 { margin-top: 1.5rem !important; }
+    .mt-6 { margin-top: 1rem !important; }
+    .mt-4 { margin-top: 0.75rem !important; }
+    .mb-6 { margin-bottom: 1rem !important; }
+    .mb-3 { margin-bottom: 0.5rem !important; }
+    
+    .p-8 { padding: 1.25rem !important; }
+    .py-8 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    .py-16 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+    
+    .gap-10 { gap: 1rem !important; }
+    
+    .text-4xl { font-size: 1.5rem !important; }
+
+    /* Update hover section base styles */
+    .hover-section {
+      position: absolute;
+      background: white;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      width: 160px;
+      z-index: 20;
+    }
+
+    /* Make skills section wider and more separated */
+    .hover-skills {
+      width: 220px;
+      margin-right: 10px;
+    }
+
+    /* Profile card hover state */
+    .profile-card:hover .hover-section {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Position sections for left profile */
+    /* Right column (closer to card) */
+    .profile-card:first-child .hover-experience { top: 10%; right: -165px; }
+    .profile-card:first-child .hover-achievements { top: 60%; right: -165px; }
+    
+    /* Far right column (for interests and projects) */
+    .profile-card:first-child .hover-interests { top: 10%; right: -330px; }
+    .profile-card:first-child .hover-projects { top: 40%; right: -330px; }
+    
+    /* Left column (closer to page border) */
+    .profile-card:first-child .hover-education { top: 5%; left: -170px; }
+    .profile-card:first-child .hover-languages { top: 30%; left: -170px; }
+    .profile-card:first-child .hover-certifications { top: 55%; left: -170px; }
+
+    /* Position sections for right profile - mirror of left */
+    /* Left column (closer to card) */
+    .profile-card:last-child .hover-experience { top: 10%; left: -165px; }
+    .profile-card:last-child .hover-achievements { top: 45%; left: -165px; }
+    
+    /* Far left column (for interests and projects) */
+    .profile-card:last-child .hover-interests { top: 10%; left: -330px; }
+    .profile-card:last-child .hover-projects { top: 40%; left: -330px; }
+    
+    /* Right column (closer to page border) */
+    .profile-card:last-child .hover-education { top: 5%; right: -170px; }
+    .profile-card:last-child .hover-languages { top: 30%; right: -170px; }
+    .profile-card:last-child .hover-certifications { top: 55%; right: -170px; }
+
+    /* Add staggered animation delays */
+    .hover-about { transition-delay: 0s; }
+    .hover-skills { transition-delay: 0.05s; }
+    .hover-experience { transition-delay: 0.1s; }
+    .hover-achievements { transition-delay: 0.15s; }
+    .hover-education { transition-delay: 0.2s; }
+    .hover-languages { transition-delay: 0.25s; }
+    .hover-projects { transition-delay: 0.3s; }
+    .hover-contact { transition-delay: 0.35s; }
+    .hover-interests { transition-delay: 0.4s; }
+    .hover-certifications { transition-delay: 0.45s; }
+    .hover-social { transition-delay: 0.5s; }
 
     /* Responsive adjustments */
     @media (max-width: 767px) {
@@ -180,14 +269,23 @@
         font-size: 0.9rem;
       }
     }
+
+    /* Update gradient text effect */
+    .gradient-text {
+      background: linear-gradient(to right, #fbbf24, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body class="bg-gray-100 font-sans">
   <!-- Header -->
   <header class="bg-gradient-to-r from-purple-700 to-indigo-900 text-white py-8 shadow-lg">
     <div class="container mx-auto text-center">
-      <h1 class="text-5xl font-bold tracking-tight">Elite Programmer Profiles</h1>
-      <p class="mt-3 text-xl opacity-90">Discover Top-Tier IT Professionals and Innovators</p>
+        <h1 class="text-5xl font-bold tracking-tight gradient-text bg-white/95 backdrop-blur-sm inline-block px-6 py-2 rounded-lg shadow-xl">Elite Programmer Profiles</h1>
+        <p class="mt-3 text-xl opacity-90">Discover Top-Tier IT Professionals and Innovators</p>
     </div>
   </header>
 
@@ -196,124 +294,191 @@
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 profile-container">
       <!-- Programmer 1 -->
       <div class="bg-white rounded-lg p-8 profile-card flex flex-col items-center text-center" data-profile-id="jane-doe">
-        <div class="w-36 h-36 profile-image-placeholder profile-image-blue flex items-center justify-center text-white text-6xl font-bold overflow-hidden">
-          <span class="text-4xl">JD</span>
-          <!-- Ideally, an actual image would go here -->
+        <div class="w-24 h-24 profile-image-placeholder profile-image-blue flex items-center justify-center text-white text-4xl font-bold">
+            <span class="text-4xl">JD</span>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Jane Doe</h2>
-        <p class="text-lg text-blue-600 mb-6 font-semibold">Full-Stack Developer</p>
-
-        <div class="text-left w-full mt-4">
-          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-3">About Me</h3>
-          <p class="text-gray-700 leading-relaxed">
-            I'm a passionate full-stack developer with 3 years of experience in building robust web applications. My expertise lies in crafting responsive and user-friendly interfaces, delivering seamless digital experiences from front to back.
-          </p>
-        </div>
-
-        <div class="text-left w-full mt-6">
-          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-3">Skills</h3>
-          <div class="flex flex-wrap">
-            <span class="skill-tag">JavaScript (React, Node.js)</span>
-            <span class="skill-tag">Python (Django)</span>
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS3</span>
-            <span class="skill-tag">Tailwind CSS</span>
-            <span class="skill-tag">SQL</span>
-            <span class="skill-tag">MongoDB</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">Docker</span>
-          </div>
-        </div>
-
-        <div class="text-left w-full mt-6">
-          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-3">Experience</h3>
-          <p class="text-gray-700 mb-3">
-            <strong class="text-gray-900">Software Developer</strong> at TechCorp (2022–Present)<br>
-            Spearheaded the development and maintenance of key web applications, significantly boosting user engagement by 30%.
-          </p>
-          <p class="text-gray-700">
-            <strong class="text-gray-900">Junior Developer</strong> at StartUp Inc. (2021–2022)<br>
-            Actively contributed to building scalable RESTful APIs and optimizing critical database queries.
-          </p>
-        </div>
-
-        <div class="mt-8 w-full">
-          <a href="mailto:jane.doe@example.com" class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full hover:bg-blue-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold shadow-lg">
-            Contact Jane
-          </a>
-        </div>
-
-        <!-- Add hover content to each profile card -->
-        <div class="hover-content">
-            <div class="bg-gray-50 p-4 rounded-lg mt-4">
-                <h4 class="text-lg font-semibold text-gray-800 mb-2">Additional Achievements</h4>
-                <ul class="list-disc list-inside text-gray-700">
-                    <li>Led a team of 5 developers in redesigning the core platform</li>
-                    <li>Reduced system response time by 40% through optimization</li>
-                    <li>Implemented automated testing, achieving 90% coverage</li>
-                </ul>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Jane Doe</h2>
+        <p class="text-md text-blue-600 font-semibold mb-4">Full-Stack Developer</p>
+        <div class="flex flex-col gap-4 mb-6">
+            <p class="text-sm text-gray-700">
+                I'm a passionate full-stack developer with 3 years of experience in building robust web applications. I specialize in creating scalable solutions using modern technologies and best practices. My approach combines technical expertise with a strong focus on user experience and clean code architecture.
+            </p>
+            <div class="flex flex-col gap-2 mb-4">
+                <h3 class="text-xl font-semibold">Skills</h3>
+                <div class="flex flex-wrap gap-1 justify-center">
+                    <span class="skill-tag">JavaScript (React, Node.js)</span>
+                    <span class="skill-tag">Python (Django)</span>
+                    <span class="skill-tag">HTML5/CSS3</span>
+                    <span class="skill-tag">MongoDB</span>
+                </div>
             </div>
+            <a href="mailto:jane.doe@example.com" class="inline-block w-[70%] max-w-[180px] bg-blue-600 text-white py-1.5 px-4 rounded-full hover:bg-blue-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold text-sm shadow-lg mx-auto">
+                Contact Jane
+            </a>
+        </div>
+        <div class="flex gap-2 mt-2">
+            <a href="#" class="text-blue-600 hover:text-blue-800">GitHub</a>
+            <span class="text-gray-300">|</span>
+            <a href="#" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
+        </div>
+
+        <!-- Hover sections for first profile -->
+        <div class="hover-section hover-experience">
+            <h3 class="text-xl font-semibold mb-2">Experience</h3>
+            <p class="text-sm text-gray-700">
+                <strong>Software Developer</strong> at TechCorp (2022–Present)<br>
+                Boosted user engagement by 30%<br>
+                <strong>Junior Developer</strong> at StartUp Inc. (2021–2022)<br>
+                Built scalable RESTful APIs
+            </p>
+        </div>
+
+        <div class="hover-section hover-achievements">
+            <h3 class="text-xl font-semibold mb-2">Achievements</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>Led team of 5 developers</li>
+                <li>40% performance improvement</li>
+                <li>90% test coverage</li>
+            </ul>
+        </div>
+
+        <div class="hover-section hover-interests">
+            <h3 class="text-xl font-semibold mb-2">Interests</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>AI & Machine Learning</li>
+                <li>Web3 Technologies</li>
+                <li>Cloud Architecture</li>
+            </ul>
+        </div>
+
+        <div class="hover-section hover-education">
+            <h3 class="text-xl font-semibold mb-2">Education</h3>
+            <p class="text-sm text-gray-700">
+                <strong>BSc Computer Science</strong><br>
+                Tech University (2018-2021)
+            </p>
+        </div>
+
+        <div class="hover-section hover-languages">
+            <h3 class="text-xl font-semibold mb-2">Languages</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>English (Native)</li>
+                <li>Spanish (Fluent)</li>
+                <li>French (Basic)</li>
+            </ul>
+        </div>
+
+        <div class="hover-section hover-projects">
+            <h3 class="text-xl font-semibold mb-2">Key Projects</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>E-commerce Platform</li>
+                <li>AI Chat Application</li>
+                <li>Cloud Migration</li>
+            </ul>
+        </div>
+
+        <!-- New sections -->
+        <div class="hover-section hover-certifications">
+            <h3 class="text-xl font-semibold mb-2">Certifications</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>AWS Solutions Architect</li>
+                <li>Google Cloud Professional</li>
+                <li>MCSD Web Developer</li>
+            </ul>
         </div>
       </div>
 
       <!-- Programmer 2 -->
       <div class="bg-white rounded-lg p-8 profile-card flex flex-col items-center text-center" data-profile-id="john-smith">
-        <div class="w-36 h-36 profile-image-placeholder profile-image-green flex items-center justify-center text-white text-6xl font-bold overflow-hidden">
-          <span class="text-4xl">JS</span>
-          <!-- Ideally, an actual image would go here -->
+        <div class="w-24 h-24 profile-image-placeholder profile-image-green flex items-center justify-center text-white text-4xl font-bold">
+            <span class="text-4xl">JS</span>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">John Smith</h2>
-        <p class="text-lg text-green-600 mb-6 font-semibold">Backend Developer</p>
-
-        <div class="text-left w-full mt-4">
-          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-green-400 pb-2 mb-3">About Me</h3>
-          <p class="text-gray-700 leading-relaxed">
-            I am a dedicated backend developer with 4 years of experience, specializing in building highly scalable and resilient server-side applications. My focus is on robust system design and seamless cloud integration.
-          </p>
-        </div>
-
-        <div class="text-left w-full mt-6">
-          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-green-400 pb-2 mb-3">Skills</h3>
-          <div class="flex flex-wrap">
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Java (Spring Boot)</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Python</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Go</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">AWS</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Kubernetes</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">PostgreSQL</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Redis</span>
-            <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">REST API Design</span>
-          </div>
-        </div>
-
-        <div class="text-left w-full mt-6">
-          <h3 class="text-xl font-semibold text-gray-800 border-b-2 border-green-400 pb-2 mb-3">Experience</h3>
-          <p class="text-gray-700 mb-3">
-            <strong class="text-gray-900">Backend Engineer</strong> at CloudSys (2021–Present)<br>
-            Designed and successfully implemented a microservices architecture, leading to a 25% reduction in system latency.
-          </p>
-          <p class="text-gray-700">
-            <strong class="text-gray-900">Software Engineer</strong> at DataWorks (2020–2021)<br>
-            Significantly optimized database performance and seamlessly integrated various third-party APIs.
-          </p>
-        </div>
-
-        <div class="mt-8 w-full">
-          <a href="mailto:john.smith@example.com" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full hover:bg-green-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold shadow-lg">
-            Contact John
-          </a>
-        </div>
-
-        <!-- Add hover content to each profile card -->
-        <div class="hover-content">
-            <div class="bg-gray-50 p-4 rounded-lg mt-4">
-                <h4 class="text-lg font-semibold text-gray-800 mb-2">Additional Achievements</h4>
-                <ul class="list-disc list-inside text-gray-700">
-                    <li>Led a team of 5 developers in redesigning the core platform</li>
-                    <li>Reduced system response time by 40% through optimization</li>
-                    <li>Implemented automated testing, achieving 90% coverage</li>
-                </ul>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">John Smith</h2>
+        <p class="text-md text-green-600 font-semibold mb-4">Backend Developer</p>
+        <div class="flex flex-col gap-4 mb-6">
+            <p class="text-sm text-gray-700">
+          I am a dedicated backend developer with 4 years of experience, specializing in building highly scalable and resilient server-side applications. My expertise includes distributed systems, microservices architecture, and cloud infrastructure optimization.
+        </p>
+            <div class="flex flex-col gap-2 mb-4">
+                <h3 class="text-xl font-semibold">Skills</h3>
+                <div class="flex flex-wrap gap-1 justify-center">
+                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Java (Spring)</span>
+                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Python</span>
+                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">AWS</span>
+                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Kubernetes</span>
+                </div>
             </div>
+            <a href="mailto:john.smith@example.com" class="inline-block w-[70%] max-w-[180px] bg-green-600 text-white py-1.5 px-4 rounded-full hover:bg-green-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold text-sm shadow-lg mx-auto">
+                Contact John
+            </a>
+        </div>
+        <div class="flex gap-2 mt-2">
+            <a href="#" class="text-green-600 hover:text-green-800">GitHub</a>
+            <span class="text-gray-300">|</span>
+            <a href="#" class="text-green-600 hover:text-green-800">LinkedIn</a>
+        </div>
+
+        <!-- Hover sections for second profile -->
+        <div class="hover-section hover-experience">
+            <h3 class="text-xl font-semibold mb-2">Experience</h3>
+            <p class="text-sm text-gray-700">
+                <strong class="text-gray-900">Backend Engineer</strong> at CloudSys (2021–Present)<br>
+                <strong class="text-gray-900">Software Engineer</strong> at DataWorks (2020–2021)
+            </p>
+        </div>
+
+        <div class="hover-section hover-achievements">
+            <h3 class="text-xl font-semibold mb-2">Achievements</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>Designed and implemented a microservices architecture</li>
+                <li>25% reduction in system latency</li>
+                <li>Optimized database performance significantly</li>
+            </ul>
+        </div>
+
+        <div class="hover-section hover-interests">
+            <h3 class="text-xl font-semibold mb-2">Interests</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>AI & Machine Learning</li>
+                <li>Web3 Technologies</li>
+                <li>Cloud Architecture</li>
+            </ul>
+        </div>
+
+        <div class="hover-section hover-education">
+            <h3 class="text-xl font-semibold mb-2">Education</h3>
+            <p class="text-sm text-gray-700">
+                <strong>BSc Computer Science</strong><br>
+                Tech University (2018-2021)
+            </p>
+        </div>
+
+        <div class="hover-section hover-languages">
+            <h3 class="text-xl font-semibold mb-2">Languages</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>English (Native)</li>
+                <li>Spanish (Fluent)</li>
+                <li>French (Basic)</li>
+            </ul>
+        </div>
+
+        <div class="hover-section hover-projects">
+            <h3 class="text-xl font-semibold mb-2">Key Projects</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>E-commerce Platform</li>
+                <li>AI Chat Application</li>
+                <li>Cloud Migration</li>
+            </ul>
+        </div>
+
+        <!-- New sections -->
+        <div class="hover-section hover-certifications">
+            <h3 class="text-xl font-semibold mb-2">Certifications</h3>
+            <ul class="text-sm text-gray-700 list-disc list-inside">
+                <li>AWS Solutions Architect</li>
+                <li>Google Cloud Professional</li>
+                <li>MCSD Web Developer</li>
+            </ul>
         </div>
       </div>
     </section>
