@@ -7,11 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
+
     body {
+
       font-family: 'Poppins', sans-serif;
-      background-color: #f0f4f8; /* Lighter background */
-      /* Prevent scrolling when a card is expanded */
+      background-color: #f0f4f8;
       overflow: auto;
+      transition: background 0.5s ease;
+      margin: 1rem; 
     }
 
     .profile-container {
@@ -32,6 +35,7 @@
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       padding: 1rem;
       min-height: 300px;
+      z-index: 20;
     }
 
     /* First card expands right */
@@ -62,6 +66,7 @@
     .profile-container:hover .profile-card:not(:hover) {
       transform: scale(0.9);
       opacity: 0.5;
+      z-index: 5;
       filter: blur(3px);
     }
 
@@ -70,7 +75,7 @@
       opacity: 0;
       height: 0;
       overflow: hidden;
-      transition: all 0.5s ease;
+      transition:  0.5s ease;
     }
 
     .profile-card:hover .hover-content {
@@ -131,11 +136,24 @@
       font-weight: 600;
       margin-right: 0.5rem;
       margin-bottom: 0.5rem;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
     }
 
     .skill-tag:hover {
       background-color: #c7d2fe; /* Slightly darker on hover */
+      border-color: #4338ca;
+    }
+
+    /* Update skill tag colors for second profile */
+    .profile-card:last-child .skill-tag {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .profile-card:last-child .skill-tag:hover {
+      background-color: #a7f3d0;
+      border-color: #065f46;
     }
 
     .profile-image-placeholder {
@@ -156,7 +174,16 @@
       background: linear-gradient(45deg, #34d399, #10b981); /* Lighter green gradient */
       box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3); /* Lighter green glow */
     }
-
+    .footer{
+      background-color: rgb(48, 25, 52); 
+      color:white;
+      padding-top:1px;
+      padding-bottom:1px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      transition: all 0.5s ease;
+    }
     /* Text selection color */
     ::selection {
       background: rgba(34, 197, 94, 0.3); /* Light green background */
@@ -194,12 +221,51 @@
       background: white;
       padding: 0.5rem;
       border-radius: 0.5rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      display: none;
       width: 160px;
+      z-index: 200;
+      transition: none;
+    }
+
+    /* Profile card z-index */
+    .profile-card {
       z-index: 20;
+    }
+
+    .profile-card:hover {
+      z-index: 150;
+    }
+
+    /* Simple display toggle for hover sections */
+    .profile-card:hover .hover-section {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Remove ALL transition delays */
+    .hover-about,
+    .hover-skills,
+    .hover-experience,
+    .hover-achievements,
+    .hover-education,
+    .hover-languages,
+    .hover-projects,
+    .hover-contact,
+    .hover-interests,
+    .hover-certifications,
+    .hover-social {
+      transition-delay: 0s !important;
+    }
+
+    /* Remove all opacity/transition related styles */
+    .hover-section,
+    .profile-card:hover .hover-section {
+      transition: none;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     /* Make skills section wider and more separated */
@@ -210,8 +276,7 @@
 
     /* Profile card hover state */
     .profile-card:hover .hover-section {
-      opacity: 1;
-      visibility: visible;
+      display: block;
     }
 
     /* Position sections for left profile */
@@ -278,6 +343,81 @@
       background-clip: text;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    /* Add social link hover animations */
+    .social-link {
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    
+    .social-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .social-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    /* Blue theme for first profile */
+    .profile-card:first-child .social-link::after {
+      background-color: #2563eb;
+    }
+
+    /* Green theme for second profile */
+    .profile-card:last-child .social-link::after {
+      background-color: #10b981;
+    }
+
+    .social-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Add body background states */
+    body.hover-profile-1 {
+      background: linear-gradient(135deg, #1e40af 0%, #000000 100%);
+    }
+
+    body.hover-profile-2 {
+      background: linear-gradient(135deg, #000000 0%, #065f46 100%);
+    }
+
+    /* Adjust text colors for dark background */
+    body.hover-profile-1 .container:not(.profile-card),
+    body.hover-profile-2 .container:not(.profile-card) {
+      color: white;
+    }
+
+    /* Add styles for footer blur effect */
+    .footer {
+      background-color: rgb(48, 25, 52);
+      color: white;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      transition: all 0.5s ease;
+    }
+
+    /* Add blur effect to footer when profile is hovered */
+    .profile-container:hover ~ .footer,
+    body.hover-profile-1 .footer,
+    body.hover-profile-2 .footer {
+      filter: blur(3px);
+      opacity: 0.7;
+    }
+    h3{
+      transparent: none;
+      color: #394749
+    }
+
   </style>
 </head>
 <body class="bg-gray-100 font-sans">
@@ -317,9 +457,9 @@
             </a>
         </div>
         <div class="flex gap-2 mt-2">
-            <a href="#" class="text-blue-600 hover:text-blue-800">GitHub</a>
+            <a href="#" class="social-link text-blue-600 hover:text-blue-800">GitHub</a>
             <span class="text-gray-300">|</span>
-            <a href="#" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
+            <a href="#" class="social-link text-blue-600 hover:text-blue-800">LinkedIn</a>
         </div>
 
         <!-- Hover sections for first profile -->
@@ -402,10 +542,10 @@
             <div class="flex flex-col gap-2 mb-4">
                 <h3 class="text-xl font-semibold">Skills</h3>
                 <div class="flex flex-wrap gap-1 justify-center">
-                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Java (Spring)</span>
-                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Python</span>
-                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">AWS</span>
-                    <span class="skill-tag" style="background-color: #d1fae5; color: #065f46;">Kubernetes</span>
+                    <span class="skill-tag">Java (Spring)</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Kubernetes</span>
                 </div>
             </div>
             <a href="mailto:john.smith@example.com" class="inline-block w-[70%] max-w-[180px] bg-green-600 text-white py-1.5 px-4 rounded-full hover:bg-green-700 transform hover:scale-105 transition duration-300 ease-in-out font-semibold text-sm shadow-lg mx-auto">
@@ -413,9 +553,9 @@
             </a>
         </div>
         <div class="flex gap-2 mt-2">
-            <a href="#" class="text-green-600 hover:text-green-800">GitHub</a>
+            <a href="#" class="social-link text-green-600 hover:text-green-800">GitHub</a>
             <span class="text-gray-300">|</span>
-            <a href="#" class="text-green-600 hover:text-green-800">LinkedIn</a>
+            <a href="#" class="social-link text-green-600 hover:text-green-800">LinkedIn</a>
         </div>
 
         <!-- Hover sections for second profile -->
@@ -495,28 +635,30 @@
     <span>Ready to connect? Click 'Contact' on the profile!</span>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-8 mt-12 shadow-inner">
+<footer class="footer pt-4 pb-6 mt-16">
     <div class="container mx-auto text-center">
-      <p class="text-gray-400">&copy; 2025 Elite Programmer Profiles. All rights reserved.</p>
+        <p class="text-sm">© 2023 Elite Programmer Profiles. All rights reserved.</p>
     </div>
   </footer>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const contactNotification = document.getElementById('contactNotification');
+        const body = document.body;
         
         document.querySelectorAll('.profile-card').forEach((card, index) => {
             card.addEventListener('mouseenter', () => {
                 contactNotification.classList.remove('show-blue', 'show-green');
                 contactNotification.classList.add(index === 0 ? 'show-blue' : 'show-green');
+                body.classList.add(index === 0 ? 'hover-profile-1' : 'hover-profile-2');
             });
             
             card.addEventListener('mouseleave', () => {
                 contactNotification.classList.remove('show-blue', 'show-green');
+                body.classList.remove('hover-profile-1', 'hover-profile-2');
             });
         });
     });
   </script>
 </body>
+
 </html>
