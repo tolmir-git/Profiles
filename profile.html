@@ -156,24 +156,77 @@
       border-color: #065f46;
     }
 
-    .profile-image-placeholder {
-      background: linear-gradient(45deg, #2563eb, #1d4ed8); /* Blue gradient default */
-      border: 2px solid #ffffff; /* White border */
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3); /* Blue glow */
-      width: 100px; /* Make it square */
-      height: 100px; /* Make it square */
-      border-radius: 2rem; /* Rounded corners */
-    }
+    /* Add animations for profile images */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: scale(1.05);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+}
 
-    .profile-image-blue {
-      background: linear-gradient(45deg, #2563eb, #1d4ed8); /* Blue gradient */
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3); /* Blue glow */
-    }
+@keyframes bassEffect {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px 10px rgba(37, 99, 235, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+}
 
-    .profile-image-green {
-      background: linear-gradient(45deg, #34d399, #10b981); /* Lighter green gradient */
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3); /* Lighter green glow */
-    }
+@keyframes bassEffectGreen {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px 10px rgba(16, 185, 129, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+}
+
+.profile-image-placeholder {
+  background-size: 200% 200%;
+  transition: all 0.3s ease;
+  animation: gradientShift 3s ease infinite;
+}
+
+.profile-card:hover .profile-image-blue {
+  animation: bassEffect 0.7s ease-in-out infinite;
+}
+
+.profile-card:hover .profile-image-green {
+  animation: bassEffectGreen 0.7s ease-in-out infinite;
+}
+
+/* Update base gradients */
+.profile-image-blue {
+  background: linear-gradient(45deg, #2563eb, #1d4ed8, #3b82f6, #60a5fa);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+.profile-image-green {
+  background: linear-gradient(45deg, #34d399, #10b981, #059669, #34d399);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
     .footer{
       background-color: rgb(48, 25, 52); 
       color:white;
@@ -414,8 +467,23 @@
       opacity: 0.7;
     }
     h3{
-      transparent: none;
-      color: #394749
+      color: #394749;
+    }
+
+    /* Add entrance animation */
+    @keyframes slideInFromTop {
+      0% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .header-title-container {
+      animation: slideInFromTop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
   </style>
@@ -423,7 +491,7 @@
 <body class="bg-gray-100 font-sans">
   <!-- Header -->
   <header class="bg-gradient-to-r from-purple-700 to-indigo-900 text-white py-8 shadow-lg">
-    <div class="container mx-auto text-center">
+    <div class="container mx-auto text-center header-title-container">
         <h1 class="text-5xl font-bold tracking-tight gradient-text bg-white/95 backdrop-blur-sm inline-block px-6 py-2 rounded-lg shadow-xl">Elite Programmer Profiles</h1>
         <p class="mt-3 text-xl opacity-90">Discover Top-Tier IT Professionals and Innovators</p>
     </div>
